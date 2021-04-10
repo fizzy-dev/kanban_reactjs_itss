@@ -4,13 +4,17 @@
  ・チェックボックスにチェックが入っているか管理する
  ・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
-function TodoItem({ item }) {
+function TodoItem(props) {
+  const {item, handleCheckboxClick } = props;
+
   return (
     <label className="panel-block">
-      <input type="checkbox" />
-      <div>{item.text}</div>
+      <input type="checkbox" onChange={() => handleCheckboxClick(item)} checked={item.done}/>
+      <span className={item.done ? 'has-text-grey-light' : ''}>
+        {item.text}
+      </span>
     </label>
-  );
+  )
 }
 
-export default TodoItem;
+export default TodoItem
