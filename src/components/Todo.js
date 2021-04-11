@@ -37,31 +37,31 @@ function Todo(props) {
   }
 
   //tao item moi 
-  function createNewItem(title,value){
-    if(title==='DO'){
+  function createNewItem(title, value) {
+    if (title === 'DO') {
       const newItem = {
         key: getKey(),
         text: value,
         done: false,
-        pending:true
+        pending: true
       }
       return newItem
     }
-    if(title==='DOING'){
+    if (title === 'DOING') {
       const newItem = {
         key: getKey(),
         text: value,
         done: false,
-        pending:false
+        pending: false
       }
       return newItem
     }
-    if(title==='DONE'){
+    if (title === 'DONE') {
       const newItem = {
         key: getKey(),
         text: value,
         done: true,
-        pending:false
+        pending: false
       }
       return newItem
     }
@@ -69,13 +69,31 @@ function Todo(props) {
 
   function handleSubmitForm(formValues) {
     const newItems = [];
-    const newItem= createNewItem(title, formValues.title);
+    const newItem = createNewItem(title, formValues.title);
     items.forEach((item) => {
       newItems.push(item)
     })
     newItems.push(newItem);
     setItems(newItems);
   }
+
+  function handleEditForm(item) {
+    const newItems = [];
+    items.forEach((e) => {
+      if (e.key === item.key) {
+        newItems.push(item);
+      } else {
+        newItems.push(e);
+      }
+    })
+    setItems(newItems);
+  }
+
+  function handleDeleteForm(item) {
+    const newItems = items.filter(x => x.key !== item.key);
+    setItems(newItems);
+  }
+
 
   return (
     <div className="panel">
@@ -86,7 +104,10 @@ function Todo(props) {
 
       {items.map(item => (
         <TodoItem item={item}
-          handleCheckboxClick={handleCheckboxClick}>
+          handleCheckboxClick={handleCheckboxClick}
+          handleEditForm={handleEditForm}
+          handleDeleteForm={handleDeleteForm}
+        >
         </TodoItem>
       ))}
       <div className="panel-block">
