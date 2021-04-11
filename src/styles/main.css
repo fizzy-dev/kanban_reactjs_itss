@@ -1,5 +1,66 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.2/css/bulma.min.css');
-
 .container {
-  margin-top: 2rem;
+    margin-top: 2rem;
+    display: flex;
+}
+
+.panel {
+    float: left;
+    width: 1000px;
+}
+
+.panel-block {
+    height: 50px;
+    display: flex;
+    padding: 0px;
+    flex-wrap: wrap;
+}
+
+.panel-content {
+    height: 80%;
+    width: 100%;
+    margin: auto;
+}
+
+.panel-optional {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    margin: auto;
+}
+
+.green-box,
+.blue-box,
+.violet-box,
+.yellow-box,
+.orange-box,
+.red-box,
+.white-box {
+    height: 100%;
+    width: 20px;
+}
+
+.todo-content {
+    top: 0px;
+    margin: auto;
+    float: left;
+}
+
+.todo-optional {
+    height: 20px;
+}
+
+.todo-palete {
+    margin: auto;
+    float: left;
+}
+
+.todo-edit {
+    margin: auto;
+    float: left;
+}
+
+.todo-delete {
+    margin: auto;
+    float: left;
 }

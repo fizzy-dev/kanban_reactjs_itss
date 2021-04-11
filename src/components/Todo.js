@@ -18,16 +18,10 @@ import useStorage from '../hooks/storage';
 /* ライブラリ */
 import { getKey } from "../lib/util";
 
-function Todo() {
-  const [items, setItems] = React.useState([
-    /* テストコード 開始 */
-    { key: getKey(), text: '日本語の宿題', done: true },
-    { key: getKey(), text: 'reactを勉強する', done: false },
-    { key: getKey(), text: '明日の準備をする', done: false },
-    /* テストコード 終了 */
-  ]);
+function Todo(props) {
+  const { listItems, title } = props
 
-  const [filter, setFilter] = useState('all');
+  const [items, setItems] = React.useState(listItems);
 
   //bat event click checkbox
   function handleCheckboxClick(item) {
@@ -42,13 +36,40 @@ function Todo() {
     setItems(newItems);
   }
 
+  //tao item moi 
+  function createNewItem(title,value){
+    if(title==='DO'){
+      const newItem = {
+        key: getKey(),
+        text: value,
+        done: false,
+        pending:true
+      }
+      return newItem
+    }
+    if(title==='DOING'){
+      const newItem = {
+        key: getKey(),
+        text: value,
+        done: false,
+        pending:false
+      }
+      return newItem
+    }
+    if(title==='DONE'){
+      const newItem = {
+        key: getKey(),
+        text: value,
+        done: true,
+        pending:false
+      }
+      return newItem
+    }
+  }
+
   function handleSubmitForm(formValues) {
     const newItems = [];
-    const newItem = {
-      key: getKey(),
-      text: formValues.title,
-      done: false
-    }
+    const newItem= createNewItem(title, formValues.title);
     items.forEach((item) => {
       newItems.push(item)
     })
@@ -56,23 +77,14 @@ function Todo() {
     setItems(newItems);
   }
 
-  function handleFilterClick(value) {
-    const newItems = { ...items }
-    setFilter(value);
-  }
-
-
   return (
     <div className="panel">
       <div className="panel-heading">
-        ITSS ToDoアプリ
+        {title}
       </div>
-      <TodoFilter handleFilterClick={handleFilterClick}></TodoFilter>
       <TodoInput onSubmitt={handleSubmitForm}></TodoInput>
 
-      {items.filter(item => {
-        return (filter === 'all') || (filter === 'unactive' && item.done) || (filter === 'active' && !item.done)
-      }).map(item => (
+      {items.map(item => (
         <TodoItem item={item}
           handleCheckboxClick={handleCheckboxClick}>
         </TodoItem>
