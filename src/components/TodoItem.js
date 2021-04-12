@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Arrow from './Arrow';
 /* 
   【TodoItemコンポーネント】
  ・Todoアイテムを表示する
@@ -59,35 +59,7 @@ function TodoItem(props) {
     setOpenEdit(status);
   }
 
-  // hien thi muiten trai phai
-  const renderArrowForm = () => {
-    if (item.done === true && item.pending === false) {
-      return (
-        <div className="left-arrow" onClick={handleClickLeftArrow}>
-          <i class="fas fa-arrow-left"></i>
-        </div>
-      )
-    }
-    if (item.done === false && item.pending === false) {
-      return (
-        <div>
-          <div className="left-arrow" onClick={handleClickLeftArrow}>
-            <i class="fas fa-arrow-left"></i>
-          </div>
-          <div className="right-arrow" onClick={handleClickRightArrow}>
-            <i class="fas fa-arrow-right"></i>
-          </div>
-        </div>
-      )
-    }
-    if (item.done === false && item.pending === true) {
-      return (
-        <div className="right-arrow" onClick={handleClickRightArrow}>
-          <i class="fas fa-arrow-right"></i>
-        </div>
-      )
-    }
-  }
+  
 
   const renderEditForm = () => {
     if (openEdit === false) {
@@ -125,13 +97,7 @@ function TodoItem(props) {
     handleDeleteForm(item);
   }
  
-  const handleClickLeftArrow=()=>{
-    handleLeftArrow(item);
-  }
-
-  const handleClickRightArrow=()=>{
-    handleRightArrow(item);
-  }
+  
 
   return (
     <div className="panel-block" style={{ background: curColor }}>
@@ -141,9 +107,11 @@ function TodoItem(props) {
 
           {renderEditForm()}
         </div>
-        <div className="todo-arrow item5">
-          {renderArrowForm()}
-        </div>
+        <Arrow
+          item = {item}
+          leftArrow = {handleLeftArrow}
+          rightArrow = {handleRightArrow}
+        />
         <div className="todo-palete item2" onClick={handleClickPalete}>
           <i className="fas fa-palette"></i>
         </div>
