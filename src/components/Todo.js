@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* 
   【Todoのデータ構成】
@@ -19,12 +19,15 @@ import useStorage from '../hooks/storage';
 import { getKey } from "../lib/util";
 
 function Todo(props) {
-  const { listItems, title } = props
+  const { listItems, title, handleClickArrow } = props
 
   const [items, setItems] = React.useState(listItems);
 
   const [showAddTaskForm, setShowAddTaskForm] = useState(true);
 
+  useEffect(() => {
+    setItems(listItems)
+  }, [listItems])
   //bat event click checkbox
   function handleCheckboxClick(item) {
     const newItems = [];
@@ -122,6 +125,28 @@ function Todo(props) {
     }
   }
 
+  const handleLeftArrow = (item) => {
+    if (item.pending === false && item.done === true) {
+      const newItem = { ...item, done: false }
+      handleClickArrow(newItem);
+    }
+    if (item.pending === false && item.done === false) {
+      const newItem = { ...item, pending: true }
+      handleClickArrow(newItem);
+    }
+  }
+
+  const handleRightArrow = (item) => {
+    if (item.pending === true && item.done === false) {
+      const newItem = { ...item, pending: false }
+      handleClickArrow(newItem);
+    }
+    if (item.pending === false && item.done === false) {
+      const newItem = { ...item, done: true }
+      handleClickArrow(newItem);
+    }
+
+  }
 
   return (
     <div className="panel">
@@ -133,6 +158,8 @@ function Todo(props) {
           handleCheckboxClick={handleCheckboxClick}
           handleEditForm={handleEditForm}
           handleDeleteForm={handleDeleteForm}
+          handleLeftArrow={handleLeftArrow}
+          handleRightArrow={handleRightArrow}
         >
         </TodoItem>
       ))}

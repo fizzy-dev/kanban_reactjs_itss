@@ -35,8 +35,24 @@
     width: 25px;
 }
 
+.item5 {
+    width: 40px;
+}
+
 .item1 {
     flex-grow: 1;
+}
+
+.todo-arrow {
+    display: flex;
+}
+
+.right-arrow>i {
+    margin: auto;
+}
+
+.left-arrow {
+    float: left;
 }
 
 .panel-optional {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getKey } from "./lib/util";
 
 
@@ -43,11 +43,40 @@ function App() {
   )
 
 
+
+
+  const handleClickArrow = (item) => {
+    const newListItems = [];
+    listItems.forEach((e) => {
+      if (e.key === item.key) {
+        newListItems.push(item);
+      } else {
+        newListItems.push(e);
+      }
+    })
+
+    // console.log(newListItems);
+
+    setListItems(newListItems);
+    setDoingItems(newListItems.filter(item => {
+      return item.pending === false && item.done === false
+    }))
+
+    setPendingItems(newListItems.filter(item => {
+      return item.pending === true && item.done === false
+    }))
+
+    setDoneItems(newListItems.filter(item => {
+      return item.pending === false && item.done === true
+    }))
+  }
+
+
   return (
     <div className="container is-fluid">
-      <Todo listItems={pendingItems} title="To Do" />
-      <Todo listItems={doingItems} title="In Progress"></Todo>
-      <Todo listItems={doneItems} title="Done"></Todo>
+      <Todo listItems={pendingItems} title="To Do" handleClickArrow={handleClickArrow} />
+      <Todo listItems={doingItems} title="In Progress" handleClickArrow={handleClickArrow}></Todo>
+      <Todo listItems={doneItems} title="Done" handleClickArrow={handleClickArrow}></Todo>
     </div>
   );
 }
