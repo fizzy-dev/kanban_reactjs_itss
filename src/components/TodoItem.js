@@ -7,7 +7,7 @@ import React, { useState } from 'react';
  ・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 function TodoItem(props) {
-  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm , handleLeftArrow, handleRightArrow, handleSetColor} = props;
+  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm, handleLeftArrow, handleRightArrow, handleSetColor } = props;
 
   // state lưu trạng thái đóng mở bảng màu 
   const [openPalete, setOpenPalete] = useState(false);
@@ -30,7 +30,7 @@ function TodoItem(props) {
   const handleClickPaleteColor = (color) => {
     //setbackground 
     setCurColor(color.background);
-    const newItem= {...item, color:color.background}
+    const newItem = { ...item, color: color.background }
     handleSetColor(newItem);
 
 
@@ -124,17 +124,17 @@ function TodoItem(props) {
   const handleClickDelete = () => {
     handleDeleteForm(item);
   }
- 
-  const handleClickLeftArrow=()=>{
+
+  const handleClickLeftArrow = () => {
     handleLeftArrow(item);
   }
 
-  const handleClickRightArrow=()=>{
+  const handleClickRightArrow = () => {
     handleRightArrow(item);
   }
 
   return (
-    <div className="panel-block" style={{ background: curColor }}>
+    <div className="panel-block" style={{ background: item.color }}>
       <div className="panel-content">
         <div className="todo-content item1">
           {/* <input type="checkbox" onChange={() => handleCheckboxClick(item)} checked={item.done} /> */}

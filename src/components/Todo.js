@@ -19,7 +19,7 @@ import useStorage from '../hooks/storage';
 import { getKey } from "../lib/util";
 
 function Todo(props) {
-  const { listItems, title, handleClickArrow,AppHandleSetColor } = props
+  const { listItems, title, handleClickArrow, AppHandleSetColor,appHandleSubmitForm ,appHandleEditTodo, appHandleDeleteTodo} = props
 
   const [items, setItems] = React.useState(listItems);
 
@@ -48,7 +48,8 @@ function Todo(props) {
         key: getKey(),
         text: value,
         done: false,
-        pending: true
+        pending: true,
+        color: ''
       }
       return newItem
     }
@@ -57,7 +58,8 @@ function Todo(props) {
         key: getKey(),
         text: value,
         done: false,
-        pending: false
+        pending: false,
+        color: ''
       }
       return newItem
     }
@@ -66,7 +68,8 @@ function Todo(props) {
         key: getKey(),
         text: value,
         done: true,
-        pending: false
+        pending: false,
+        color: ''
       }
       return newItem
     }
@@ -79,24 +82,31 @@ function Todo(props) {
       newItems.push(item)
     })
     newItems.push(newItem);
-    setItems(newItems);
 
+    appHandleSubmitForm(newItem);
+
+    // setItems(newItems);
+
+    //hien thi lai nut add task
     setShowAddTaskForm(true);
   }
 
   function handleEditForm(item) {
-    const newItems = [];
-    items.forEach((e) => {
-      if (e.key === item.key) {
-        newItems.push(item);
-      } else {
-        newItems.push(e);
-      }
-    })
-    setItems(newItems);
+    appHandleEditTodo(item);
+
+    // const newItems = [];
+    // items.forEach((e) => {
+    //   if (e.key === item.key) {
+    //     newItems.push(item);
+    //   } else {
+    //     newItems.push(e);
+    //   }
+    // })
+    // setItems(newItems);
   }
 
   function handleDeleteForm(item) {
+    appHandleDeleteTodo(item);
     const newItems = items.filter(x => x.key !== item.key);
     setItems(newItems);
   }
@@ -148,7 +158,7 @@ function Todo(props) {
 
   }
 
-  const handleSetColor=(item)=>{
+  const handleSetColor = (item) => {
     AppHandleSetColor(item);
   }
 

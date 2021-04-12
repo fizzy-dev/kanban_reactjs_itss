@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useStorage from './hooks/storage'
 import { getKey } from "./lib/util";
 
 
@@ -9,20 +10,26 @@ import './styles/main.css';
 import Todo from './components/Todo';
 
 function App() {
+  const [items, putItems, clearItems] = useStorage();
 
-  const [listItems, setListItems] = useState([
-    /* テストコード 開始 */
-    { key: getKey(), text: 'day la mot memo', done: true, pending: false, color: '' },
-    { key: getKey(), text: 'day cung la mot memo', done: true, pending: false, color: '' },
-    { key: getKey(), text: 'lam bai tap reactjs', done: true, pending: false, color: '' },
-    { key: getKey(), text: 'day la mot project', done: false, pending: false, color: '' },
-    { key: getKey(), text: 'xong truoc buoi chieu thu 2', done: false, pending: false, color: '' },
-    { key: getKey(), text: 'bat dau lam thoi', done: false, pending: true, color: '' },
-    { key: getKey(), text: 'xong task 1', done: false, pending: true, color: '' },
-    { key: getKey(), text: 'xin chao cac ban', done: false, pending: true, color: '' },
-    { key: getKey(), text: 'xin chao  ban', done: false, pending: true, color: '' }
-    /* テストコード 終了 */
-  ]);
+  // const initItems = [
+  //   /* テストコード 開始 */
+  //   { key: getKey(), text: 'day la mot memo', done: true, pending: false, color: '' },
+  //   { key: getKey(), text: 'day cung la mot memo', done: true, pending: false, color: '' },
+  //   { key: getKey(), text: 'lam bai tap reactjs', done: true, pending: false, color: '' },
+  //   { key: getKey(), text: 'day la mot project', done: false, pending: false, color: '' },
+  //   { key: getKey(), text: 'xong truoc buoi chieu thu 2', done: false, pending: false, color: '' },
+  //   { key: getKey(), text: 'bat dau lam thoi', done: false, pending: true, color: '' },
+  //   { key: getKey(), text: 'xong task 1', done: false, pending: true, color: '' },
+  //   { key: getKey(), text: 'xin chao cac ban', done: false, pending: true, color: '' },
+  //   { key: getKey(), text: 'xin chao  ban', done: false, pending: true, color: '' }
+  //   /* テストコード 終了 */
+  // ]
+
+  //lưu trữ vào storage
+
+  const [listItems, setListItems] = useState(JSON.parse(localStorage.getItem('itss-todo')));
+
 
   const [pendingItems, setPendingItems] = useState(
     listItems.filter((item) => {
@@ -42,9 +49,6 @@ function App() {
     })
   )
 
-
-
-
   const handleClickArrow = (item) => {
     const newListItems = [];
     listItems.forEach((e) => {
@@ -54,10 +58,10 @@ function App() {
         newListItems.push(e);
       }
     })
-
-    // console.log(newListItems);
-
     setListItems(newListItems);
+    //lưu vào local storage
+    putItems(newListItems)
+
     setDoingItems(newListItems.filter(item => {
       return item.pending === false && item.done === false
     }))
@@ -83,7 +87,9 @@ function App() {
     })
 
     setListItems(newListItems);
-    console.log(newListItems);
+    //lưu vào local storage
+    putItems(newListItems)
+
     setDoingItems(newListItems.filter(item => {
       return item.pending === false && item.done === false
     }))
@@ -97,12 +103,102 @@ function App() {
     }))
   }
 
+  const appHandleSubmitForm = (item) => {
+    const newListItems = [...listItems];
+    newListItems.push(item);
+    setListItems(newListItems);
+
+    // lưu vào local storage
+    putItems(newListItems)
+
+    setDoingItems(newListItems.filter(item => {
+      return item.pending === false && item.done === false
+    }))
+
+    setPendingItems(newListItems.filter(item => {
+      return item.pending === true && item.done === false
+    }))
+
+    setDoneItems(newListItems.filter(item => {
+      return item.pending === false && item.done === true
+    }))
+  }
+
+  const appHandleEditTodo = (item) => {
+    const newListItems = [];
+    listItems.forEach((e) => {
+      if (e.key === item.key) {
+        newListItems.push(item);
+      } else {
+        newListItems.push(e);
+      }
+    })
+
+    setListItems(newListItems);
+    //lưu vào local storage
+    putItems(newListItems)
+
+    setDoingItems(newListItems.filter(item => {
+      return item.pending === false && item.done === false
+    }))
+
+    setPendingItems(newListItems.filter(item => {
+      return item.pending === true && item.done === false
+    }))
+
+    setDoneItems(newListItems.filter(item => {
+      return item.pending === false && item.done === true
+    }))
+
+  }
+
+  const appHandleDeleteTodo = (item) => {
+    const newListItems = listItems.filter(x => x.key !== item.key);
+    setListItems(newListItems);
+    //lưu vào local storage
+    putItems(newListItems)
+
+    setDoingItems(newListItems.filter(item => {
+      return item.pending === false && item.done === false
+    }))
+
+    setPendingItems(newListItems.filter(item => {
+      return item.pending === true && item.done === false
+    }))
+
+    setDoneItems(newListItems.filter(item => {
+      return item.pending === false && item.done === true
+    }))
+  }
 
   return (
     <div className="container is-fluid">
-      <Todo listItems={pendingItems} title="To Do" handleClickArrow={handleClickArrow} AppHandleSetColor={AppHandleSetColor} />
-      <Todo listItems={doingItems} title="In Progress" handleClickArrow={handleClickArrow} AppHandleSetColor={AppHandleSetColor}></Todo>
-      <Todo listItems={doneItems} title="Done" handleClickArrow={handleClickArrow} AppHandleSetColor={AppHandleSetColor}></Todo>
+      <Todo
+        listItems={pendingItems}
+        title="To Do"
+        handleClickArrow={handleClickArrow}
+        AppHandleSetColor={AppHandleSetColor}
+        appHandleSubmitForm={appHandleSubmitForm}
+        appHandleEditTodo={appHandleEditTodo}
+        appHandleDeleteTodo={appHandleDeleteTodo} />
+      <Todo
+        listItems={doingItems}
+        title="In Progress"
+        handleClickArrow={handleClickArrow}
+        AppHandleSetColor={AppHandleSetColor}
+        appHandleSubmitForm={appHandleSubmitForm}
+        appHandleEditTodo={appHandleEditTodo}
+        appHandleDeleteTodo={appHandleDeleteTodo}
+      ></Todo>
+      <Todo
+        listItems={doneItems}
+        title="Done"
+        handleClickArrow={handleClickArrow}
+        AppHandleSetColor={AppHandleSetColor}
+        appHandleSubmitForm={appHandleSubmitForm}
+        appHandleEditTodo={appHandleEditTodo}
+        appHandleDeleteTodo={appHandleDeleteTodo}
+      ></Todo>
     </div>
   );
 }
