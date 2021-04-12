@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Arrow from './Arrow';
+
 /* 
   【TodoItemコンポーネント】
  ・Todoアイテムを表示する
@@ -7,7 +7,7 @@ import Arrow from './Arrow';
  ・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 function TodoItem(props) {
-  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm , handleLeftArrow, handleRightArrow, handleSetColor} = props;
+  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm, handleLeftArrow, handleRightArrow, handleSetColor } = props;
 
   // state lưu trạng thái đóng mở bảng màu 
   const [openPalete, setOpenPalete] = useState(false);
@@ -30,7 +30,7 @@ function TodoItem(props) {
   const handleClickPaleteColor = (color) => {
     //setbackground 
     setCurColor(color.background);
-    const newItem= {...item, color:color.background}
+    const newItem = { ...item, color: color.background }
     handleSetColor(newItem);
 
 
@@ -59,7 +59,35 @@ function TodoItem(props) {
     setOpenEdit(status);
   }
 
-  
+  // hien thi muiten trai phai
+  const renderArrowForm = () => {
+    if (item.done === true && item.pending === false) {
+      return (
+        <div className="left-arrow" onClick={handleClickLeftArrow}>
+          <i class="fas fa-arrow-left"></i>
+        </div>
+      )
+    }
+    if (item.done === false && item.pending === false) {
+      return (
+        <div>
+          <div className="left-arrow" onClick={handleClickLeftArrow}>
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div className="right-arrow" onClick={handleClickRightArrow}>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      )
+    }
+    if (item.done === false && item.pending === true) {
+      return (
+        <div className="right-arrow" onClick={handleClickRightArrow}>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      )
+    }
+  }
 
   const renderEditForm = () => {
     if (openEdit === false) {
@@ -96,22 +124,26 @@ function TodoItem(props) {
   const handleClickDelete = () => {
     handleDeleteForm(item);
   }
- 
-  
+
+  const handleClickLeftArrow = () => {
+    handleLeftArrow(item);
+  }
+
+  const handleClickRightArrow = () => {
+    handleRightArrow(item);
+  }
 
   return (
-    <div className="panel-block" style={{ background: curColor }}>
+    <div className="panel-block" style={{ background: item.color }}>
       <div className="panel-content">
         <div className="todo-content item1">
           {/* <input type="checkbox" onChange={() => handleCheckboxClick(item)} checked={item.done} /> */}
 
           {renderEditForm()}
         </div>
-        <Arrow
-          item = {item}
-          leftArrow = {handleLeftArrow}
-          rightArrow = {handleRightArrow}
-        />
+        <div className="todo-arrow item5">
+          {renderArrowForm()}
+        </div>
         <div className="todo-palete item2" onClick={handleClickPalete}>
           <i className="fas fa-palette"></i>
         </div>
