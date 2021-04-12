@@ -8,13 +8,6 @@ import React, { useState } from 'react';
 */
 function TodoItem(props) {
   const { item, handleCheckboxClick, handleEditForm,handleDeleteForm } = props;
-  const colors = [
-    { green: '#61BD4F' },
-    { yellow: '#F2D600' },
-    { orange: '#FF9F1A' },
-    { red: '#EB5A46' },
-    { violet: '#C377E0' },
-    { blue: '#0079BF' }];
 
   // state lưu trạng thái đóng mở bảng màu 
   const [openPalete, setOpenPalete] = useState(false);
@@ -23,7 +16,7 @@ function TodoItem(props) {
   const [openEdit, setOpenEdit] = useState(false);
 
   //state lưu giá trị nhập vào form chỉnh sửa
-  const [editFormValue, setEditFormValue] = useState('');
+  const [editFormValue, setEditFormValue] = useState(item.text);
 
   //state lưu trạng thái màu của thẻ todo hiện tại
   const [curColor, setCurColor] = useState('');
@@ -99,19 +92,19 @@ function TodoItem(props) {
 
 
   return (
-    <label className="panel-block" style={{ background: curColor }}>
+    <div className="panel-block" style={{ background: curColor }}>
       <div className="panel-content">
-        <div className="todo-content">
-          <input type="checkbox" onChange={() => handleCheckboxClick(item)} checked={item.done} />
+        <div className="todo-content item1">
+          {/* <input type="checkbox" onChange={() => handleCheckboxClick(item)} checked={item.done} /> */}
           {renderEditForm()}
         </div>
-        <div className="todo-palete" onClick={handleClickPalete}>
+        <div className="todo-palete item2" onClick={handleClickPalete}>
           <i className="fas fa-palette"></i>
         </div>
-        <div className="todo-edit" onClick={handleClickEdit}>
+        <div className="todo-edit item3" onClick={handleClickEdit}>
           <i className="fas fa-pencil-alt"></i>
         </div>
-        <div className="todo-delete" onClick={handleClickDelete}>
+        <div className="todo-delete item4" onClick={handleClickDelete}>
           <i className="far fa-trash-alt"></i>
         </div>
       </div>
@@ -119,7 +112,7 @@ function TodoItem(props) {
       {renderPaleteForm()}
       {/* cac action voi todo */}
 
-    </label>
+    </div>
   )
 }
 

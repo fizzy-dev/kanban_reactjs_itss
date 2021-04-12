@@ -30,13 +30,13 @@ function App() {
     })
   )
 
-  const [doingItems,setDoingItems]=useState(
+  const [doingItems, setDoingItems] = useState(
     listItems.filter((item) => {
       return item.done === false && item.pending === false
     })
   )
 
-  const [doneItems,setDoneItems]=useState(
+  const [doneItems, setDoneItems] = useState(
     listItems.filter((item) => {
       return item.done === true && item.pending === false
     })
@@ -45,9 +45,9 @@ function App() {
 
   return (
     <div className="container is-fluid">
-      <Todo listItems={pendingItems} title="DO"/>
-      <Todo listItems={doingItems} title="DOING"></Todo>
-      <Todo listItems={doneItems} title="DONE"></Todo>
+      <Todo listItems={pendingItems} title="To Do" />
+      <Todo listItems={doingItems} title="In Progress"></Todo>
+      <Todo listItems={doneItems} title="Done"></Todo>
     </div>
   );
 }

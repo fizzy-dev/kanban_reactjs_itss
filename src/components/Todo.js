@@ -23,6 +23,8 @@ function Todo(props) {
 
   const [items, setItems] = React.useState(listItems);
 
+  const [showAddTaskForm, setShowAddTaskForm] = useState(true);
+
   //bat event click checkbox
   function handleCheckboxClick(item) {
     const newItems = [];
@@ -38,7 +40,7 @@ function Todo(props) {
 
   //tao item moi 
   function createNewItem(title, value) {
-    if (title === 'DO') {
+    if (title === 'To Do') {
       const newItem = {
         key: getKey(),
         text: value,
@@ -47,7 +49,7 @@ function Todo(props) {
       }
       return newItem
     }
-    if (title === 'DOING') {
+    if (title === 'In Progress') {
       const newItem = {
         key: getKey(),
         text: value,
@@ -56,7 +58,7 @@ function Todo(props) {
       }
       return newItem
     }
-    if (title === 'DONE') {
+    if (title === 'Done') {
       const newItem = {
         key: getKey(),
         text: value,
@@ -75,6 +77,8 @@ function Todo(props) {
     })
     newItems.push(newItem);
     setItems(newItems);
+
+    setShowAddTaskForm(true);
   }
 
   function handleEditForm(item) {
@@ -94,14 +98,36 @@ function Todo(props) {
     setItems(newItems);
   }
 
+  const handleClickAddTask = () => {
+    setShowAddTaskForm(!showAddTaskForm);
+  }
+
+  const renderAddTaskForm = () => {
+    if (showAddTaskForm === true) {
+      return (
+        <div className="panel-block add-task-btn" onClick={handleClickAddTask}>
+          <div className="add-btn-group">
+            <i class="fas fa-plus item-add-1"></i>
+            <p class="item-add-2">Add a task</p>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="panel-block">
+          <TodoInput onSubmitt={handleSubmitForm}></TodoInput>
+          <div className="cancel-add-task-in-form-btn" onClick={handleClickAddTask}>Cancel</div>
+        </div>
+      )
+    }
+  }
+
 
   return (
     <div className="panel">
       <div className="panel-heading">
         {title}
       </div>
-      <TodoInput onSubmitt={handleSubmitForm}></TodoInput>
-
       {items.map(item => (
         <TodoItem item={item}
           handleCheckboxClick={handleCheckboxClick}
@@ -110,7 +136,8 @@ function Todo(props) {
         >
         </TodoItem>
       ))}
-      <div className="panel-block">
+      {renderAddTaskForm()}
+      <div className="panel-block count-item">
         {items.length} items
       </div>
     </div>

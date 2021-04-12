@@ -14,12 +14,29 @@
     display: flex;
     padding: 0px;
     flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.panel-block:hover {
+    background: lightskyblue;
 }
 
 .panel-content {
     height: 80%;
     width: 100%;
     margin: auto;
+    display: flex;
+}
+
+.item1,
+.item2,
+.item3,
+.item4 {
+    width: 25px;
+}
+
+.item1 {
+    flex-grow: 1;
 }
 
 .panel-optional {
@@ -63,4 +80,37 @@
 .todo-delete {
     margin: auto;
     float: left;
+}
+
+.add-task-btn {
+    cursor: pointer;
+    height: 30px;
+    width: 100%;
+}
+
+.add-btn-group {
+    display: flex;
+    width: 100%;
+}
+
+.add-btn-group:hover {
+    background: lightgray;
+}
+
+.item-add-1 {
+    margin-top: 4px;
+}
+
+.item-add-2 {
+    color: grey;
+}
+
+.count-item {
+    align-content: center;
+}
+
+.cancel-add-task-in-form-btn {
+    border-radius: 5%;
+    background-color: lightsalmon;
+    margin-top: 2px;
 }
