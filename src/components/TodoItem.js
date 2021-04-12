@@ -7,7 +7,7 @@ import React, { useState } from 'react';
  ・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 function TodoItem(props) {
-  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm , handleLeftArrow, handleRightArrow} = props;
+  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm , handleLeftArrow, handleRightArrow, handleSetColor} = props;
 
   // state lưu trạng thái đóng mở bảng màu 
   const [openPalete, setOpenPalete] = useState(false);
@@ -19,7 +19,7 @@ function TodoItem(props) {
   const [editFormValue, setEditFormValue] = useState(item.text);
 
   //state lưu trạng thái màu của thẻ todo hiện tại
-  const [curColor, setCurColor] = useState('');
+  const [curColor, setCurColor] = useState(item.color);
 
 
   const handleClickPalete = () => {
@@ -30,6 +30,9 @@ function TodoItem(props) {
   const handleClickPaleteColor = (color) => {
     //setbackground 
     setCurColor(color.background);
+    const newItem= {...item, color:color.background}
+    handleSetColor(newItem);
+
 
     //close palete
     const status = !openPalete

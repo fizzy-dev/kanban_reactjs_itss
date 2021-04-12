@@ -19,7 +19,7 @@ import useStorage from '../hooks/storage';
 import { getKey } from "../lib/util";
 
 function Todo(props) {
-  const { listItems, title, handleClickArrow } = props
+  const { listItems, title, handleClickArrow,AppHandleSetColor } = props
 
   const [items, setItems] = React.useState(listItems);
 
@@ -148,6 +148,10 @@ function Todo(props) {
 
   }
 
+  const handleSetColor=(item)=>{
+    AppHandleSetColor(item);
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
@@ -160,6 +164,7 @@ function Todo(props) {
           handleDeleteForm={handleDeleteForm}
           handleLeftArrow={handleLeftArrow}
           handleRightArrow={handleRightArrow}
+          handleSetColor={handleSetColor}
         >
         </TodoItem>
       ))}

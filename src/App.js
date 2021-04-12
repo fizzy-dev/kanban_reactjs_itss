@@ -12,15 +12,15 @@ function App() {
 
   const [listItems, setListItems] = useState([
     /* テストコード 開始 */
-    { key: getKey(), text: 'day la mot memo', done: true, pending: false },
-    { key: getKey(), text: 'day cung la mot memo', done: true, pending: false },
-    { key: getKey(), text: 'lam bai tap reactjs', done: true, pending: false },
-    { key: getKey(), text: 'day la mot project', done: false, pending: false },
-    { key: getKey(), text: 'xong truoc buoi chieu thu 2', done: false, pending: false },
-    { key: getKey(), text: 'bat dau lam thoi', done: false, pending: true },
-    { key: getKey(), text: 'xong task 1', done: false, pending: true },
-    { key: getKey(), text: 'xin chao cac ban', done: false, pending: true },
-    { key: getKey(), text: 'xin chao  ban', done: false, pending: true }
+    { key: getKey(), text: 'day la mot memo', done: true, pending: false, color: '' },
+    { key: getKey(), text: 'day cung la mot memo', done: true, pending: false, color: '' },
+    { key: getKey(), text: 'lam bai tap reactjs', done: true, pending: false, color: '' },
+    { key: getKey(), text: 'day la mot project', done: false, pending: false, color: '' },
+    { key: getKey(), text: 'xong truoc buoi chieu thu 2', done: false, pending: false, color: '' },
+    { key: getKey(), text: 'bat dau lam thoi', done: false, pending: true, color: '' },
+    { key: getKey(), text: 'xong task 1', done: false, pending: true, color: '' },
+    { key: getKey(), text: 'xin chao cac ban', done: false, pending: true, color: '' },
+    { key: getKey(), text: 'xin chao  ban', done: false, pending: true, color: '' }
     /* テストコード 終了 */
   ]);
 
@@ -71,12 +71,38 @@ function App() {
     }))
   }
 
+  const AppHandleSetColor = (item) => {
+    const newListItems = [];
+    listItems.forEach(e => {
+      if (e.key === item.key) {
+        newListItems.push(item);
+      }
+      else {
+        newListItems.push(e);
+      }
+    })
+
+    setListItems(newListItems);
+    console.log(newListItems);
+    setDoingItems(newListItems.filter(item => {
+      return item.pending === false && item.done === false
+    }))
+
+    setPendingItems(newListItems.filter(item => {
+      return item.pending === true && item.done === false
+    }))
+
+    setDoneItems(newListItems.filter(item => {
+      return item.pending === false && item.done === true
+    }))
+  }
+
 
   return (
     <div className="container is-fluid">
-      <Todo listItems={pendingItems} title="To Do" handleClickArrow={handleClickArrow} />
-      <Todo listItems={doingItems} title="In Progress" handleClickArrow={handleClickArrow}></Todo>
-      <Todo listItems={doneItems} title="Done" handleClickArrow={handleClickArrow}></Todo>
+      <Todo listItems={pendingItems} title="To Do" handleClickArrow={handleClickArrow} AppHandleSetColor={AppHandleSetColor} />
+      <Todo listItems={doingItems} title="In Progress" handleClickArrow={handleClickArrow} AppHandleSetColor={AppHandleSetColor}></Todo>
+      <Todo listItems={doneItems} title="Done" handleClickArrow={handleClickArrow} AppHandleSetColor={AppHandleSetColor}></Todo>
     </div>
   );
 }
