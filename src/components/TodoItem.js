@@ -7,7 +7,7 @@ import Arrow from './Arrow';
  ・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 function TodoItem(props) {
-  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm , handleLeftArrow, handleRightArrow, handleSetColor} = props;
+  const { item, handleCheckboxClick, handleEditForm, handleDeleteForm, handleLeftArrow, handleRightArrow, handleSetColor } = props;
 
   // state lưu trạng thái đóng mở bảng màu 
   const [openPalete, setOpenPalete] = useState(false);
@@ -21,6 +21,9 @@ function TodoItem(props) {
   //state lưu trạng thái màu của thẻ todo hiện tại
   const [curColor, setCurColor] = useState(item.color);
 
+  //state lưu trạng thái của menu todoitem
+  const [openMenu, setOpenMenu] = useState(false);
+
 
   const handleClickPalete = () => {
     const status = !openPalete;
@@ -30,13 +33,58 @@ function TodoItem(props) {
   const handleClickPaleteColor = (color) => {
     //setbackground 
     setCurColor(color.background);
-    const newItem= {...item, color:color.background}
+    const newItem = { ...item, color: color.background }
     handleSetColor(newItem);
 
 
     //close palete
     const status = !openPalete
     setOpenPalete(status);
+
+    //close menu
+    setOpenMenu(!openMenu);
+  }
+
+  const handleClickMenuItem = () => {
+    setOpenMenu(!openMenu);
+  }
+
+  const onClickArrow = () => {
+    //dong menu item
+    setOpenMenu(!openMenu)
+  }
+
+  const renderMenuItem = () => {
+    if (openMenu === false) {
+      return (
+        <div className="todo-menu" onClick={handleClickMenuItem}>
+          <i class="fas fa-ellipsis-v"></i>
+        </div>
+      )
+    } else {
+      return (
+        <div className="todo-menu">
+          <Arrow
+            item={item}
+            leftArrow={handleLeftArrow}
+            rightArrow={handleRightArrow}
+            onClickArrow={onClickArrow}
+          />
+          <div className="todo-palete item2" onClick={handleClickPalete}>
+            <i className="fas fa-palette"></i>
+          </div>
+          <div className="todo-edit item3" onClick={handleClickEdit}>
+            <i className="fas fa-pencil-alt"></i>
+          </div>
+          <div className="todo-delete item4" onClick={handleClickDelete}>
+            <i className="far fa-trash-alt"></i>
+          </div>
+          <div className="todo-menu" onClick={handleClickMenuItem}>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
+        </div>
+      )
+    }
   }
 
   const renderPaleteForm = () => {
@@ -58,8 +106,6 @@ function TodoItem(props) {
     const status = !openEdit;
     setOpenEdit(status);
   }
-
-  
 
   const renderEditForm = () => {
     if (openEdit === false) {
@@ -90,14 +136,21 @@ function TodoItem(props) {
       handleEditForm(newItem)
       //cap nhat state de dong form
       setOpenEdit(false);
+
+      //dong menu item
+      setOpenMenu(!openMenu);
     }
   }
 
   const handleClickDelete = () => {
     handleDeleteForm(item);
+
+    //dong menu items
+    setOpenMenu(!openMenu);
   }
- 
-  
+
+
+
 
   return (
     <div className="panel-block" >
@@ -107,10 +160,11 @@ function TodoItem(props) {
 
           {renderEditForm()}
         </div>
-        <Arrow
-          item = {item}
-          leftArrow = {handleLeftArrow}
-          rightArrow = {handleRightArrow}
+
+        {/* <Arrow
+          item={item}
+          leftArrow={handleLeftArrow}
+          rightArrow={handleRightArrow}
         />
         <div className="todo-palete item2" onClick={handleClickPalete}>
           <i className="fas fa-palette"></i>
@@ -120,7 +174,9 @@ function TodoItem(props) {
         </div>
         <div className="todo-delete item4" onClick={handleClickDelete}>
           <i className="far fa-trash-alt"></i>
-        </div>
+        </div> */}
+
+        {renderMenuItem()}
       </div>
       {/* ket thuc noi dung cua mot todo */}
       {renderPaleteForm()}

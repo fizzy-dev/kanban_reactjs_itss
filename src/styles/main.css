@@ -42,7 +42,24 @@
     border-radius: 5px;
 }
 
-.item1,
+.todo-content {
+    top: 0px;
+    margin: auto;
+    float: left;
+    text-align: center;
+}
+
+.todo-menu>i {
+    width: 20px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.todo-menu {
+    width: auto;
+    display: flex;
+}
+
 .item2,
 .item3,
 .item4 {
@@ -50,7 +67,7 @@
 }
 
 .item5 {
-    width: 40px;
+    width: auto;
 }
 
 .item1 {
@@ -59,14 +76,22 @@
 
 .todo-arrow {
     display: flex;
+    width: auto;
+    margin-top: 8px;
+}
+
+.group-arrow-btn {
+    display: flex;
 }
 
 .right-arrow>i {
     margin: auto;
+    width: 25px;
 }
 
 .left-arrow {
     float: left;
+    width: 25px;
 }
 
 .panel-optional {
@@ -74,6 +99,10 @@
     width: 100%;
     display: flex;
     margin: auto;
+}
+
+.panel-heading {
+    text-align: center;
 }
 
 .green-box,
@@ -85,12 +114,6 @@
 .white-box {
     height: 100%;
     width: 20px;
-}
-
-.todo-content {
-    top: 0px;
-    margin: auto;
-    float: left;
 }
 
 .todo-optional {
