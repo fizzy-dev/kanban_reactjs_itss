@@ -49,7 +49,7 @@ function Todo(props) {
         text: value,
         done: false,
         pending: true,
-        color: ''
+        color: '#ffffff'
       }
       return newItem
     }
@@ -59,7 +59,7 @@ function Todo(props) {
         text: value,
         done: false,
         pending: false,
-        color: ''
+        color: '#ffffff'
       }
       return newItem
     }
@@ -69,7 +69,7 @@ function Todo(props) {
         text: value,
         done: true,
         pending: false,
-        color: ''
+        color: '#ffffff'
       }
       return newItem
     }
@@ -107,8 +107,8 @@ function Todo(props) {
 
   function handleDeleteForm(item) {
     appHandleDeleteTodo(item);
-    const newItems = items.filter(x => x.key !== item.key);
-    setItems(newItems);
+    // const newItems = items.filter(x => x.key !== item.key);
+    // setItems(newItems);
   }
 
   const handleClickAddTask = () => {
@@ -163,7 +163,7 @@ function Todo(props) {
   }
 
   return (
-    <div className="panel">
+    <div>
       <div className="panel-heading">
         {title}
       </div>

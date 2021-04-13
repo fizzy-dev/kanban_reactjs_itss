@@ -100,8 +100,8 @@ function TodoItem(props) {
   
 
   return (
-    <div className="panel-block" style={{ background: item.color }}>
-      <div className="panel-content">
+    <div className="panel-block" >
+      <div className="panel-content" style={{ background: item.color }}>
         <div className="todo-content item1">
           {/* <input type="checkbox" onChange={() => handleCheckboxClick(item)} checked={item.done} /> */}
 

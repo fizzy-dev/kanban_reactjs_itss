@@ -172,33 +172,39 @@ function App() {
   }
 
   return (
-    <div className="container is-fluid">
-      <Todo
-        listItems={pendingItems}
-        title="To Do"
-        handleClickArrow={handleClickArrow}
-        AppHandleSetColor={AppHandleSetColor}
-        appHandleSubmitForm={appHandleSubmitForm}
-        appHandleEditTodo={appHandleEditTodo}
-        appHandleDeleteTodo={appHandleDeleteTodo} />
-      <Todo
-        listItems={doingItems}
-        title="In Progress"
-        handleClickArrow={handleClickArrow}
-        AppHandleSetColor={AppHandleSetColor}
-        appHandleSubmitForm={appHandleSubmitForm}
-        appHandleEditTodo={appHandleEditTodo}
-        appHandleDeleteTodo={appHandleDeleteTodo}
-      ></Todo>
-      <Todo
-        listItems={doneItems}
-        title="Done"
-        handleClickArrow={handleClickArrow}
-        AppHandleSetColor={AppHandleSetColor}
-        appHandleSubmitForm={appHandleSubmitForm}
-        appHandleEditTodo={appHandleEditTodo}
-        appHandleDeleteTodo={appHandleDeleteTodo}
-      ></Todo>
+    <div className="container">
+      <div className=" panel-1">
+        <Todo
+          listItems={pendingItems}
+          title="To Do"
+          handleClickArrow={handleClickArrow}
+          AppHandleSetColor={AppHandleSetColor}
+          appHandleSubmitForm={appHandleSubmitForm}
+          appHandleEditTodo={appHandleEditTodo}
+          appHandleDeleteTodo={appHandleDeleteTodo} />
+      </div>
+      <div className=" panel-2">
+        <Todo
+          listItems={doingItems}
+          title="In Progress"
+          handleClickArrow={handleClickArrow}
+          AppHandleSetColor={AppHandleSetColor}
+          appHandleSubmitForm={appHandleSubmitForm}
+          appHandleEditTodo={appHandleEditTodo}
+          appHandleDeleteTodo={appHandleDeleteTodo}
+        ></Todo>
+      </div>
+      <div className=" panel-3">
+        <Todo
+          listItems={doneItems}
+          title="Done"
+          handleClickArrow={handleClickArrow}
+          AppHandleSetColor={AppHandleSetColor}
+          appHandleSubmitForm={appHandleSubmitForm}
+          appHandleEditTodo={appHandleEditTodo}
+          appHandleDeleteTodo={appHandleDeleteTodo}
+        ></Todo>
+      </div>
     </div>
   );
 }
