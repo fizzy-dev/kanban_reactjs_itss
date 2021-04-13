@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Arrow from './Arrow';
+//alert
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 /* 
   【TodoItemコンポーネント】
  ・Todoアイテムを表示する
@@ -143,10 +146,31 @@ function TodoItem(props) {
   }
 
   const handleClickDelete = () => {
-    handleDeleteForm(item);
+    //form alert
+    confirmAlert({
+      title: 'Deleting ' + item.text,
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            handleDeleteForm(item);
+            //dong menu items
+            setOpenMenu(!openMenu);
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => {
+            //dong menu items
+            setOpenMenu(!openMenu);
+          }
+        }
+      ]
+    });
 
-    //dong menu items
-    setOpenMenu(!openMenu);
+
+
   }
 
 
