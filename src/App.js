@@ -172,38 +172,41 @@ function App() {
   }
 
   return (
-    <div className="container">
-      <div className=" panel-1">
-        <Todo
-          listItems={pendingItems}
-          title="To Do"
-          handleClickArrow={handleClickArrow}
-          AppHandleSetColor={AppHandleSetColor}
-          appHandleSubmitForm={appHandleSubmitForm}
-          appHandleEditTodo={appHandleEditTodo}
-          appHandleDeleteTodo={appHandleDeleteTodo} />
-      </div>
-      <div className=" panel-2">
-        <Todo
-          listItems={doingItems}
-          title="In Progress"
-          handleClickArrow={handleClickArrow}
-          AppHandleSetColor={AppHandleSetColor}
-          appHandleSubmitForm={appHandleSubmitForm}
-          appHandleEditTodo={appHandleEditTodo}
-          appHandleDeleteTodo={appHandleDeleteTodo}
-        ></Todo>
-      </div>
-      <div className=" panel-3">
-        <Todo
-          listItems={doneItems}
-          title="Done"
-          handleClickArrow={handleClickArrow}
-          AppHandleSetColor={AppHandleSetColor}
-          appHandleSubmitForm={appHandleSubmitForm}
-          appHandleEditTodo={appHandleEditTodo}
-          appHandleDeleteTodo={appHandleDeleteTodo}
-        ></Todo>
+    <div>
+      <h2 class='panel-header' style={{ textAlign: 'center', fontSize:50}} id='title-header'>看板アプリ</h2>
+      <div className="container">
+        <div className=" panel-1">
+          <Todo
+            listItems={pendingItems}
+            title="To Do"
+            handleClickArrow={handleClickArrow}
+            AppHandleSetColor={AppHandleSetColor}
+            appHandleSubmitForm={appHandleSubmitForm}
+            appHandleEditTodo={appHandleEditTodo}
+            appHandleDeleteTodo={appHandleDeleteTodo} />
+        </div>
+        <div className=" panel-2">
+          <Todo
+            listItems={doingItems}
+            title="In Progress"
+            handleClickArrow={handleClickArrow}
+            AppHandleSetColor={AppHandleSetColor}
+            appHandleSubmitForm={appHandleSubmitForm}
+            appHandleEditTodo={appHandleEditTodo}
+            appHandleDeleteTodo={appHandleDeleteTodo}
+          ></Todo>
+        </div>
+        <div className=" panel-3">
+          <Todo
+            listItems={doneItems}
+            title="Done"
+            handleClickArrow={handleClickArrow}
+            AppHandleSetColor={AppHandleSetColor}
+            appHandleSubmitForm={appHandleSubmitForm}
+            appHandleEditTodo={appHandleEditTodo}
+            appHandleDeleteTodo={appHandleDeleteTodo}
+          ></Todo>
+        </div>
       </div>
     </div>
   );
